@@ -9,7 +9,7 @@ public class Student extends Person {
 		// 암시적(implicity)으로 자식 생성자 코드 앞에 부모의 기본 생성자가 호출
 		// super();
 		System.out.println("Student() called");
-		// super(); 	// 뒤에서 호출하면 error. 부모 생성자를 먼저 부르기 때문!
+		// super(); 	// 뒤에서 호출하면 오류. 부모 생성자를 먼저 부르기 때문!
 	}
 
 	public int getGrade() {

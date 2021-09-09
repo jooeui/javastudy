@@ -4,8 +4,8 @@ public class ColorPoint extends Point {
 	private String color;
 	
 //	public ColorPoint() {
-//		// super();			// 파라미터가 없는 super()가 자동으로 들어가는데 해당 생성자는 없기 때문에 error
-//		// super(10, 20);	// error는 해결되지만 값을 모르기 떄문에 이렇게 쓰지는 않음
+//		// super();			// 파라미터가 없는 super()가 자동으로 들어가는데 해당 생성자는 없기 때문에 오류
+//		// super(10, 20);	// 오류는 해결되지만 값을 모르기 떄문에 이렇게 쓰지는 않음
 //	}
 	
 	public ColorPoint(int x, int y, String color) {

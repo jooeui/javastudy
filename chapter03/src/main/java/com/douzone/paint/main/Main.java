@@ -12,7 +12,7 @@ import com.douzone.paint.text.GraphicText;
 public class Main {
 
 	public static void main(String[] args) {
-		// 생성자를 만들어줬기 떄문에 기본 생성자는 생성되지 않으므로 error
+		// 생성자를 만들어줬기 떄문에 기본 생성자는 생성되지 않으므로 오류
 		// Point point1 = new Point();
 		// point1.setX(10);
 		// point1.setY(10);
@@ -76,7 +76,7 @@ public class Main {
 		System.out.println(circle instanceof Object);
 		System.out.println(circle instanceof Shape);
 		System.out.println(circle instanceof Circle);
-		// Error: class는 hierarchy 상위와 하위만 instanceof 연산자 사용할 수 있다!
+		// 오류: class는 hierarchy 상위와 하위만 instanceof 연산자 사용할 수 있다!
 		// System.out.println(circle instanceof Rectangle);
 		
 		// interface는 hierarchy와 상관없이 instanceof 연산자 사용할 수 있다!
