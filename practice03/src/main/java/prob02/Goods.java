@@ -1,17 +1,10 @@
 package prob02;
 
 public class Goods {
-	private String[] goodsList;
 	private String name;
 	private int price;
 	private int countStock;
 	
-	public String[] getGoodsList() {
-		return goodsList;
-	}
-	public void setGoodsList(String[] goodsList) {
-		this.goodsList = goodsList;
-	}
 	public String getName() {
 		return name;
 	}
