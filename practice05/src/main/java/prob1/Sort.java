@@ -16,6 +16,33 @@ public class Sort {
 		//
 		// 정렬 알고리즘이 적용된 코드를 여기에 작성합니다.
 		//
+		
+		System.out.println();
+		
+		int max = 0;	// 최댓값
+		
+		// 배열 안에서 최댓값 구하기
+		for(int i = 0; i < count; i++) {
+			if (max < array[i]) {
+				max = array[i]; 
+			}
+		}
+		
+		int tryCount = 0;
+		int temp;
+		
+		// 내림차순으로 정렬 = array[0]이 최댓값이 됨
+		// 그러므로 array[0]이 최댓값이 아닌 경우 반복
+		while(array[0] != max) {
+			for(int i = 1; i < count-tryCount; i++) {
+				if(array[i-1] < array[i]) {
+					temp = array[i-1];
+					array[i-1] = array[i];
+					array[i] = temp;
+				}
+			}
+			tryCount++;
+		}
 
 		
 		// 결과 출력
