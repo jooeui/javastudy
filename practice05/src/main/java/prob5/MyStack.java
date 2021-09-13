@@ -4,6 +4,7 @@ public class MyStack {
 	private int top;
 	private int stackSize;
 	private String[] stackArr; 
+	private String[] tempStackArr; 
 	
 	public MyStack(int stackSize) {
 		top = -1;
@@ -12,17 +13,32 @@ public class MyStack {
 	}
 
 	public void push(String str) {
-		if(top < this.stackSize) {
+		if(top < this.stackSize-1) {
 			stackArr[++top] = str;
 		} else {
+			tempStackArr = new String[stackSize];
+			for(int i = 0; i < stackArr.length; i++) {
+				tempStackArr[i] = stackArr[i];
+			}
+			
+			stackArr = new String[++stackSize];
+			
+			for(int i = 0; i < tempStackArr.length; i++) {
+				stackArr[i] = tempStackArr[i];
+			}
+			stackArr[++top] = str;
 		}
 	}
 
 	public boolean isEmpty() {
-		return top == -1;
+		return (top == -1) ? true : false;
 	}
 
 	public String pop() {
-		return stackArr[top--];
+		try { 
+			return stackArr[top--];
+		} catch(MyStackException ex) { 
+			throw ex;
+		}
 	}
 }
