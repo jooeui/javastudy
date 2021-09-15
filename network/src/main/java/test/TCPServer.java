@@ -37,7 +37,7 @@ public class TCPServer {
 			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
 			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
 			int remoteHostPort = inetRemoteSocketAddress.getPort();
-			System.out.println("[server] connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
+			System.out.println("[Server] connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
 			
 			try {
 				// 4. IO Stream 받아오기
@@ -50,7 +50,7 @@ public class TCPServer {
 					int readByteCount = is.read(buffer);	// blocking
 					if(readByteCount == -1) {
 						// 클라이언트가 정상적으로 종료(close() 호출)
-						System.out.println("[server] closed by client");
+						System.out.println("[Server] closed by client");
 						break;
 					}
 					
