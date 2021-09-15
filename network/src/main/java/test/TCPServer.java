@@ -56,6 +56,9 @@ public class TCPServer {
 					
 					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[Server] received: " + data);
+					
+					// 6. 데이터 쓰기
+					os.write(data.getBytes("utf-8"));
 				}
 			} catch(SocketException e) {
 				System.out.println("[Server] Suddenly closed by client");
