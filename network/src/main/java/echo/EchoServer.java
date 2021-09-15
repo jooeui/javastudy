@@ -19,15 +19,20 @@ public class EchoServer {
 		try {
 			serverSocket = new ServerSocket();
 			
-			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));		// Socket에 주소 binding
+			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));		// Socket에 InetSocketAddress(IPAddress + Port) binding
 			log("starts... [port:" + PORT + "]");
 			
-			Socket socket = serverSocket.accept();
+			Socket socket = serverSocket.accept();	// blocking
+			
+			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
+			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
+			int remoteHostPort = inetRemoteSocketAddress.getPort();
+			log("connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
 			
 			try {
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 				
-				// flush true - 쓸 때마다 자동으로 flush, false로 하면 명시적으로 flush를 써줘야 함
+				// flush true - 쓸 때마다 자동으로 flush(autoFlush), false로 하면 명시적으로 flush를 써줘야 함
 				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 				
 				while(true) {
@@ -38,7 +43,6 @@ public class EchoServer {
 					}
 					
 					log("received: " + data);
-					
 					pw.println(data);
 				}
 			} catch(IOException e) {
