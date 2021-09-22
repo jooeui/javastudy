@@ -9,8 +9,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import echo.EchoServer;
-
 public class ChatServerThread extends Thread {
 	private String nickname;
 	private Socket socket;
@@ -30,7 +28,6 @@ public class ChatServerThread extends Thread {
 			while(true) {
 				String line = br.readLine();
 				if(line == null) {
-					EchoServer.log(this.nickname + "님이 연결에 끊겼습니다.");
 					removeClient(pw);
 					break;
 				}
@@ -39,13 +36,14 @@ public class ChatServerThread extends Thread {
 				if("JOIN".equals(tokens[0])) {
 					join(tokens[1], pw);
 				} else if("Message".equals(tokens[0])){
-					broadcast(this.nickname + ":" + tokens[1]);
+					broadcast(this.nickname + ": " + tokens[1]);
 				} else if("quit".equals(tokens[0])) {
 					removeClient(pw);
 				}
 			}
 		} catch (IOException e) {
-			broadcast(this.nickname + "님이 퇴장했습니다.");
+			String data = nickname + "님이 퇴장했습니다.";
+			broadcast(data);
 		}
 	}
 
@@ -65,8 +63,6 @@ public class ChatServerThread extends Thread {
 		synchronized (clientList) {
 			clientList.remove(client);
 		}
-		
-		broadcast(this.nickname + "님이 퇴장했습니다.");
 	}
 	
 	private void broadcast(String data) {
@@ -78,6 +74,7 @@ public class ChatServerThread extends Thread {
 				writer.flush();
 			}
 		}
+		
 	}
 	
 	

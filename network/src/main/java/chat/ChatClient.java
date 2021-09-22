@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 public class ChatClient {
@@ -34,9 +35,8 @@ public class ChatClient {
 			socket = new Socket();
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
 			
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
-			String request = "JOIN:" + nickname + "\r\n";
+			String request = "JOIN:" + nickname;
 			pw.println(request);
 			
 			System.out.println("채팅방에 접속하셨습니다.");
@@ -44,16 +44,18 @@ public class ChatClient {
 			
 			while(true) {
 				String message = scanner.nextLine();
-				request = "Message:" + message + "\r\n";
+				request = "Message:" + message;
 				
 				if("quit".equals(message)) {
-					request = "quit\r\n";
+					request = "quit";
 					pw.println(request);
 					break;
 				}
 				
 				pw.println(request);
 			}
+		} catch (SocketException e) {
+			log("채팅방이 종료되었습니다. 이 채팅방은 접속할 수 없습니다.");
 		} catch (IOException e) {
 			log("Error: " + e);
 		} finally {
@@ -71,7 +73,7 @@ public class ChatClient {
 		
 	}
 
-	private static void log(String log) {
+	public static void log(String log) {
 		System.out.println(log);
 	}
 
