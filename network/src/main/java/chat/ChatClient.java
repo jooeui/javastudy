@@ -1,8 +1,6 @@
 package chat;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -44,18 +42,19 @@ public class ChatClient {
 			
 			while(true) {
 				String message = scanner.nextLine();
-				request = "Message:" + message;
-				
 				if("quit".equals(message)) {
 					request = "quit";
 					pw.println(request);
+					log("채팅방을 나갑니다.");
 					break;
 				}
+				
+				request = "Message:" + message;
 				
 				pw.println(request);
 			}
 		} catch (SocketException e) {
-			log("채팅방이 종료되었습니다. 이 채팅방은 접속할 수 없습니다.");
+			log("해당 채팅방은 이용할 수 없습니다.");
 		} catch (IOException e) {
 			log("Error: " + e);
 		} finally {

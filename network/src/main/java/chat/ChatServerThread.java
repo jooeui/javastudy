@@ -39,11 +39,12 @@ public class ChatServerThread extends Thread {
 					broadcast(this.nickname + ": " + tokens[1]);
 				} else if("quit".equals(tokens[0])) {
 					removeClient(pw);
+					break;
 				}
 			}
 		} catch (IOException e) {
-			String data = nickname + "님이 퇴장했습니다.";
-			broadcast(data);
+			String data = this.nickname + "님이 퇴장했습니다.";
+			ChatServer.log(data);
 		}
 	}
 
@@ -63,17 +64,19 @@ public class ChatServerThread extends Thread {
 		synchronized (clientList) {
 			clientList.remove(client);
 		}
+		
+		String data = this.nickname + "님이 퇴장했습니다.";
+		ChatServer.log(data);
 	}
 	
 	private void broadcast(String data) {
-		ChatServer.log(data);
-
 		synchronized(clientList) {
 			for(PrintWriter writer : clientList) {
 				writer.println(data);
 				writer.flush();
 			}
 		}
+		ChatServer.log(data);
 		
 	}
 	
