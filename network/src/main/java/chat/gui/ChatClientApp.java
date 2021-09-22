@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ChatClientApp {
 	private static final String SERVER_IP = "127.0.0.1";
-	private static final int SERVER_PORT = 7878;
+	private static final int SERVER_PORT = 8888;
 
 	public static void main(String[] args) {
 		String nickname = null;
@@ -47,7 +47,7 @@ public class ChatClientApp {
 			log(nickname + "님, 채팅방에 접속하셨습니다!");
 			new ChatWindow(nickname, socket).show();
 		} catch (SocketException e) {
-			log("채팅방이 종료되었습니다. 이 채팅방은 접속할 수 없습니다.");
+			log("해당 채팅방은 이용할 수 없습니다.");
 		} catch (IOException e) {
 			log("Error: " + e);
 		}

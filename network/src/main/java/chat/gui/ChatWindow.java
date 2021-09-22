@@ -20,32 +20,30 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatWindow {
 	private Frame frame;
-	private Panel pannel;
+	private Panel textPanel;
 	private Button buttonSend;
 	private TextField textField;
 	private TextArea textArea;
-
+	private TextArea participantList;
 	private Socket socket;
+	private List<PrintWriter> clientList = new ArrayList<PrintWriter>();
 
 	public ChatWindow(String nickname, Socket socket) {
-		frame = new Frame(nickname);
-		pannel = new Panel();
+		frame = new Frame("[Chatting] " + nickname);
+		textPanel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
-
+		participantList = new TextArea(30, 30);
 		this.socket = socket;
 
-//		List<PrintWriter> clientList = new ArrayList<PrintWriter>();
-//		textArea.append(nickname + "님, 채팅방에 접속하셨습니다!\n");
-//		for(PrintWriter participant : clientList) {
-//			textArea.append(participant);			
-//		}
-//		
 		new ChatClientThread(socket).start();
+
 	}
 
 	public void show() {
@@ -82,16 +80,23 @@ public class ChatWindow {
 
 		});
 
-		// Pannel
-		pannel.setBackground(Color.LIGHT_GRAY);
-		pannel.add(textField);
-		pannel.add(buttonSend);
-		frame.add(BorderLayout.SOUTH, pannel);
+		// textPanel
+		textPanel.setBackground(Color.LIGHT_GRAY);
+		textPanel.add(textField);
+		textPanel.add(buttonSend);
+
+		frame.add(BorderLayout.SOUTH, textPanel);
 
 		// TextArea
 		textArea.setEditable(false);
+		textArea.setBackground(Color.white);
 		frame.add(BorderLayout.CENTER, textArea);
-
+		
+		participantList.setEditable(false);
+		participantList.setBackground(Color.white);
+		participantList.append("[현재 접속자]");
+		frame.add(BorderLayout.EAST, participantList);
+		
 		// Frame
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -168,7 +173,7 @@ public class ChatWindow {
 					updateTextArea(msg);
 				}
 			} catch (SocketException e) {
-				ChatClientApp.log("채팅방이 종료되었습니다. 이 채팅방은 접속할 수 없습니다.");
+				ChatClientApp.log("채팅방이 종료되었습니다. 이 채팅방은 이용할 수 없습니다.");
 				System.exit(0);
 			} catch (IOException e) {
 				e.printStackTrace();
